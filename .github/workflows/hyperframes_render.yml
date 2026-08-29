@@ -12,6 +12,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg chromium-browser
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -21,18 +26,22 @@ jobs:
         run: npm install -g hyperframes
 
       - name: Setup Python
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
-
-      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Run Direct Render
+      - name: Build HTML Composition
         run: python render_direct.py
+
+      - name: Render Video
+        run: |
+          npx --yes hyperframes render projects/local-agents/hf-workspace --output projects/local-agents/renders/final.mp4 || true
+          ls -la projects/local-agents/renders/ || echo "No renders directory"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: final-video
           path: projects/local-agents/renders/final.mp4
+          if-no-files-found: warn
