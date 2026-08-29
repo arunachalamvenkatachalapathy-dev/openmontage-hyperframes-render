@@ -20,6 +20,26 @@
       "id": "narration-s4",
       "type": "audio",
       "path": "projects/local-agents/assets/audio/s4.wav"
+    },
+    {
+      "id": "img-s1",
+      "type": "image",
+      "path": "projects/local-agents/assets/images/scene1.jpg"
+    },
+    {
+      "id": "img-s2",
+      "type": "image",
+      "path": "projects/local-agents/assets/images/scene2.jpg"
+    },
+    {
+      "id": "img-s3",
+      "type": "image",
+      "path": "projects/local-agents/assets/images/scene3.jpg"
+    },
+    {
+      "id": "img-s4",
+      "type": "image",
+      "path": "projects/local-agents/assets/images/scene4.jpg"
     }
   ]
 }

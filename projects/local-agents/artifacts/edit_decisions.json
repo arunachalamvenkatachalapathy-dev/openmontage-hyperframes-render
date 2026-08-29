@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "render_runtime": "remotion",
+  "render_runtime": "hyperframes",
   "renderer_family": "explainer-data",
   "composition_mode": "templated",
   "cuts": [
@@ -78,5 +78,95 @@
     "background": "#00000088",
     "position": "bottom-center",
     "max_words_per_line": 6
-  }
+  },
+  "scenes": [
+    {
+      "id": "scene-1",
+      "visuals": [
+        {
+          "type": "image",
+          "asset_id": "img-s1",
+          "effect": "zoom-in",
+          "duration": 4.0
+        }
+      ],
+      "audio": [
+        {
+          "type": "voice",
+          "asset_id": "narration-s1",
+          "start_time": 0
+        }
+      ],
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-2",
+      "visuals": [
+        {
+          "type": "image",
+          "asset_id": "img-s2",
+          "effect": "pan-right",
+          "duration": 4.0
+        }
+      ],
+      "audio": [
+        {
+          "type": "voice",
+          "asset_id": "narration-s2",
+          "start_time": 0
+        }
+      ],
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-3",
+      "visuals": [
+        {
+          "type": "image",
+          "asset_id": "img-s3",
+          "effect": "zoom-out",
+          "duration": 5.0
+        }
+      ],
+      "audio": [
+        {
+          "type": "voice",
+          "asset_id": "narration-s3",
+          "start_time": 0
+        }
+      ],
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-4",
+      "visuals": [
+        {
+          "type": "image",
+          "asset_id": "img-s4",
+          "effect": "pan-left",
+          "duration": 4.0
+        }
+      ],
+      "audio": [
+        {
+          "type": "voice",
+          "asset_id": "narration-s4",
+          "start_time": 0
+        }
+      ],
+      "transition": {
+        "type": "fade-to-black",
+        "duration": 1.0
+      }
+    }
+  ]
 }
