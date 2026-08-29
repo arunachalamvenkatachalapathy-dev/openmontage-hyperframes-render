@@ -4,110 +4,185 @@
   <meta charset="UTF-8">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { width:1080px; height:1920px; overflow:hidden; background:#0a0a0a; }
+    body {
+      width:1080px; height:1920px; overflow:hidden;
+      background:#000000;
+      font-family:'Arial',sans-serif;
+    }
   </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 </head>
-<body data-composition-id="root" data-start="0" data-duration="22" data-width="1080" data-height="1920">
+<body data-composition-id="root" data-start="0" data-duration="24" data-width="1080" data-height="1920">
+  <!-- Persistent Top Title -->
+  <div style="position:absolute; top:8%; left:5%; right:5%; text-align:center; color:#FFFFFF; font-size:64px; font-weight:bold; line-height:1.2;">
+    How to Build AI Agents for Free
+  </div>
 
+  <!-- Scenes -->
+  
   <div id="c1" class="clip" style="
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background:#0a0a0a; opacity:0;
-    padding: 80px 60px; box-sizing:border-box; text-align:center;
+    position:absolute; top:25%; left:0; width:100%; height:50%;
+    opacity:0; overflow:hidden;
   ">
-    <div class="label" style="
-      font-family:'Space Grotesk',sans-serif; font-weight:700;
-      font-size:108px; line-height:1.05; color:#fff; letter-spacing:-2px;
-    ">TIRED OF API FEES?</div>
-    <div class="sub" style="
-      font-family:'Space Grotesk',sans-serif; font-weight:400;
-      font-size:44px; color:#00ff88; margin-top:32px; line-height:1.3;
-    ">AI video agents are expensive.</div>
-    <div class="bar" style="
-      width:120px; height:6px; background:#00ff88; border-radius:3px; margin-top:48px;
-    "></div>
+    <!-- Image with Ken Burns -->
+    <img id="img_c1" src="images/scene1.jpg" style="
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      object-fit:cover; transform:scale(1.0);
+    ">
   </div>
 
   <div id="c2" class="clip" style="
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background:#0a0a0a; opacity:0;
-    padding: 80px 60px; box-sizing:border-box; text-align:center;
+    position:absolute; top:25%; left:0; width:100%; height:50%;
+    opacity:0; overflow:hidden;
   ">
-    <div class="label" style="
-      font-family:'Space Grotesk',sans-serif; font-weight:700;
-      font-size:108px; line-height:1.05; color:#fff; letter-spacing:-2px;
-    ">Meet LocalAI</div>
-    <div class="sub" style="
-      font-family:'Space Grotesk',sans-serif; font-weight:400;
-      font-size:44px; color:#00ff88; margin-top:32px; line-height:1.3;
-    ">Run LLMs & Voice locally on CPU. Zero cost.</div>
-    <div class="bar" style="
-      width:120px; height:6px; background:#00ff88; border-radius:3px; margin-top:48px;
-    "></div>
+    <!-- Image with Ken Burns -->
+    <img id="img_c2" src="images/scene2.jpg" style="
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      object-fit:cover; transform:scale(1.0);
+    ">
   </div>
 
   <div id="c3" class="clip" style="
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background:#0a0a0a; opacity:0;
-    padding: 80px 60px; box-sizing:border-box; text-align:center;
+    position:absolute; top:25%; left:0; width:100%; height:50%;
+    opacity:0; overflow:hidden;
   ">
-    <div class="label" style="
-      font-family:'Space Grotesk',sans-serif; font-weight:700;
-      font-size:108px; line-height:1.05; color:#fff; letter-spacing:-2px;
-    ">ENTER HYPERFRAMES</div>
-    <div class="sub" style="
-      font-family:'Space Grotesk',sans-serif; font-weight:400;
-      font-size:44px; color:#00ff88; margin-top:32px; line-height:1.3;
-    ">HTML → video in seconds, not minutes.</div>
-    <div class="bar" style="
-      width:120px; height:6px; background:#00ff88; border-radius:3px; margin-top:48px;
-    "></div>
+    <!-- Image with Ken Burns -->
+    <img id="img_c3" src="images/scene3.jpg" style="
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      object-fit:cover; transform:scale(1.0);
+    ">
   </div>
 
   <div id="c4" class="clip" style="
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background:#0a0a0a; opacity:0;
-    padding: 80px 60px; box-sizing:border-box; text-align:center;
+    position:absolute; top:25%; left:0; width:100%; height:50%;
+    opacity:0; overflow:hidden;
   ">
-    <div class="label" style="
-      font-family:'Space Grotesk',sans-serif; font-weight:700;
-      font-size:108px; line-height:1.05; color:#fff; letter-spacing:-2px;
-    ">BUILD FOR FREE.</div>
-    <div class="sub" style="
-      font-family:'Space Grotesk',sans-serif; font-weight:400;
-      font-size:44px; color:#00ff88; margin-top:32px; line-height:1.3;
-    ">No API keys. No cloud GPUs. Just results.</div>
-    <div class="bar" style="
-      width:120px; height:6px; background:#00ff88; border-radius:3px; margin-top:48px;
-    "></div>
+    <!-- Image with Ken Burns -->
+    <img id="img_c4" src="images/scene4.jpg" style="
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      object-fit:cover; transform:scale(1.0);
+    ">
   </div>
-  <audio id="aud0" src="audio/s1.wav" preload="auto"></audio>
+
+  <!-- Dynamic Captions -->
+  <div id="captions-container" style="position:absolute; bottom:15%; left:10%; right:10%; text-align:center;">
+<div id="captions_c1" style="display:none; font-family:'Arial',sans-serif; font-weight:bold; font-size:60px; line-height:1.3; color:#888888;">
+<span id="word_c1_0">Tired</span> 
+<span id="word_c1_1">of</span> 
+<span id="word_c1_2">API</span> 
+<span id="word_c1_3">fees?</span> 
+<span id="word_c1_4">AI</span> 
+<span id="word_c1_5">video</span> 
+<span id="word_c1_6">agents</span> 
+<span id="word_c1_7">cost</span> 
+<span id="word_c1_8">a</span> 
+<span id="word_c1_9">fortune.</span> 
+</div>
+<div id="captions_c2" style="display:none; font-family:'Arial',sans-serif; font-weight:bold; font-size:60px; line-height:1.3; color:#888888;">
+<span id="word_c2_0">Meet</span> 
+<span id="word_c2_1">LocalAI.</span> 
+<span id="word_c2_2">Run</span> 
+<span id="word_c2_3">LLMs</span> 
+<span id="word_c2_4">&</span> 
+<span id="word_c2_5">Voice</span> 
+<span id="word_c2_6">on</span> 
+<span id="word_c2_7">CPU.</span> 
+<span id="word_c2_8">Zero</span> 
+<span id="word_c2_9">cost.</span> 
+</div>
+<div id="captions_c3" style="display:none; font-family:'Arial',sans-serif; font-weight:bold; font-size:60px; line-height:1.3; color:#888888;">
+<span id="word_c3_0">Enter</span> 
+<span id="word_c3_1">Hyperframes.</span> 
+<span id="word_c3_2">HTML</span> 
+<span id="word_c3_3">→</span> 
+<span id="word_c3_4">Video</span> 
+<span id="word_c3_5">in</span> 
+<span id="word_c3_6">seconds.</span> 
+</div>
+<div id="captions_c4" style="display:none; font-family:'Arial',sans-serif; font-weight:bold; font-size:60px; line-height:1.3; color:#888888;">
+<span id="word_c4_0">Build</span> 
+<span id="word_c4_1">AI</span> 
+<span id="word_c4_2">agents</span> 
+<span id="word_c4_3">for</span> 
+<span id="word_c4_4">free.</span> 
+<span id="word_c4_5">No</span> 
+<span id="word_c4_6">GPUs.</span> 
+<span id="word_c4_7">No</span> 
+<span id="word_c4_8">API</span> 
+<span id="word_c4_9">keys.</span> 
+<span id="word_c4_10">Just</span> 
+<span id="word_c4_11">results.</span> 
+</div>
+</div>
+
+    <audio id="aud0" src="audio/s1.wav" preload="auto"></audio>
   <audio id="aud1" src="audio/s2.wav" preload="auto"></audio>
   <audio id="aud2" src="audio/s3.wav" preload="auto"></audio>
   <audio id="aud3" src="audio/s4.wav" preload="auto"></audio>
 <script>
-    gsap.set("#c1 .label", {y:50, opacity:0});
-  gsap.set("#c2 .label", {y:50, opacity:0});
-  gsap.set("#c3 .label", {y:50, opacity:0});
-  gsap.set("#c4 .label", {y:50, opacity:0});
   const tl = gsap.timeline({paused:true});
-  tl.to("#c1", {opacity:1, duration:0.4, ease:"power2.out"}, 0);
-  tl.to("#c1 .label", {y:0, opacity:1, duration:0.5, ease:"power3.out"}, 0.1);
-  tl.to("#c1", {opacity:0, duration:0.3}, 4.7);
-  tl.to("#c2", {opacity:1, duration:0.4, ease:"power2.out"}, 5);
-  tl.to("#c2 .label", {y:0, opacity:1, duration:0.5, ease:"power3.out"}, 5.1);
-  tl.to("#c2", {opacity:0, duration:0.3}, 10.7);
-  tl.to("#c3", {opacity:1, duration:0.4, ease:"power2.out"}, 11);
-  tl.to("#c3 .label", {y:0, opacity:1, duration:0.5, ease:"power3.out"}, 11.1);
-  tl.to("#c3", {opacity:0, duration:0.3}, 16.7);
-  tl.to("#c4", {opacity:1, duration:0.4, ease:"power2.out"}, 17);
-  tl.to("#c4 .label", {y:0, opacity:1, duration:0.5, ease:"power3.out"}, 17.1);
+
+  tl.set("#c1", {opacity:1}, 0);
+  tl.set("#captions_c1", {display:"block"}, 0);
+  tl.fromTo("#img_c1", {scale:1.0, x:0}, {scale:1.1, x:-20, duration:5, ease:"none"}, 0);
+  tl.set("#word_c1_0", {color:"#FFFFFF"}, 0.0);
+  tl.set("#word_c1_1", {color:"#FFFFFF"}, 0.5);
+  tl.set("#word_c1_2", {color:"#FFFFFF"}, 0.8);
+  tl.set("#word_c1_3", {color:"#FFFFFF"}, 1.4);
+  tl.set("#word_c1_4", {color:"#FFFFFF"}, 2.2);
+  tl.set("#word_c1_5", {color:"#FFFFFF"}, 2.6);
+  tl.set("#word_c1_6", {color:"#FFFFFF"}, 3.2);
+  tl.set("#word_c1_7", {color:"#FFFFFF"}, 3.8);
+  tl.set("#word_c1_8", {color:"#FFFFFF"}, 4.2);
+  tl.set("#word_c1_9", {color:"#FFFFFF"}, 4.4);
+  tl.set("#c1", {opacity:0}, 5);
+  tl.set("#captions_c1", {display:"none"}, 5);
+
+  tl.set("#c2", {opacity:1}, 5);
+  tl.set("#captions_c2", {display:"block"}, 5);
+  tl.fromTo("#img_c2", {scale:1.0, x:0}, {scale:1.1, x:-20, duration:6, ease:"none"}, 5);
+  tl.set("#word_c2_0", {color:"#FFFFFF"}, 5.0);
+  tl.set("#word_c2_1", {color:"#FFFFFF"}, 5.5);
+  tl.set("#word_c2_2", {color:"#FFFFFF"}, 6.8);
+  tl.set("#word_c2_3", {color:"#FFFFFF"}, 7.2);
+  tl.set("#word_c2_4", {color:"#FFFFFF"}, 8.0);
+  tl.set("#word_c2_5", {color:"#FFFFFF"}, 8.2);
+  tl.set("#word_c2_6", {color:"#FFFFFF"}, 8.8);
+  tl.set("#word_c2_7", {color:"#FFFFFF"}, 9.2);
+  tl.set("#word_c2_8", {color:"#FFFFFF"}, 10.2);
+  tl.set("#word_c2_9", {color:"#FFFFFF"}, 10.6);
+  tl.set("#c2", {opacity:0}, 11);
+  tl.set("#captions_c2", {display:"none"}, 11);
+
+  tl.set("#c3", {opacity:1}, 11);
+  tl.set("#captions_c3", {display:"block"}, 11);
+  tl.fromTo("#img_c3", {scale:1.0, x:0}, {scale:1.1, x:-20, duration:6, ease:"none"}, 11);
+  tl.set("#word_c3_0", {color:"#FFFFFF"}, 11.0);
+  tl.set("#word_c3_1", {color:"#FFFFFF"}, 11.6);
+  tl.set("#word_c3_2", {color:"#FFFFFF"}, 13.2);
+  tl.set("#word_c3_3", {color:"#FFFFFF"}, 14.0);
+  tl.set("#word_c3_4", {color:"#FFFFFF"}, 14.4);
+  tl.set("#word_c3_5", {color:"#FFFFFF"}, 15.0);
+  tl.set("#word_c3_6", {color:"#FFFFFF"}, 15.4);
+  tl.set("#c3", {opacity:0}, 17);
+  tl.set("#captions_c3", {display:"none"}, 17);
+
+  tl.set("#c4", {opacity:1}, 17);
+  tl.set("#captions_c4", {display:"block"}, 17);
+  tl.fromTo("#img_c4", {scale:1.0, x:0}, {scale:1.1, x:-20, duration:7, ease:"none"}, 17);
+  tl.set("#word_c4_0", {color:"#FFFFFF"}, 17.0);
+  tl.set("#word_c4_1", {color:"#FFFFFF"}, 17.5);
+  tl.set("#word_c4_2", {color:"#FFFFFF"}, 17.9);
+  tl.set("#word_c4_3", {color:"#FFFFFF"}, 18.5);
+  tl.set("#word_c4_4", {color:"#FFFFFF"}, 18.8);
+  tl.set("#word_c4_5", {color:"#FFFFFF"}, 19.8);
+  tl.set("#word_c4_6", {color:"#FFFFFF"}, 20.2);
+  tl.set("#word_c4_7", {color:"#FFFFFF"}, 21.2);
+  tl.set("#word_c4_8", {color:"#FFFFFF"}, 21.6);
+  tl.set("#word_c4_9", {color:"#FFFFFF"}, 22.0);
+  tl.set("#word_c4_10", {color:"#FFFFFF"}, 22.8);
+  tl.set("#word_c4_11", {color:"#FFFFFF"}, 23.2);
+
   window.__timelines = window.__timelines || {};
   window.__timelines["root"] = tl;
     gsap.delayedCall(0, () => document.getElementById("aud0").play());

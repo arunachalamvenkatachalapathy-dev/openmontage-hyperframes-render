@@ -1,9 +1,11 @@
 """
-render_direct.py — Build a 9:16 dark-neon kinetic typography composition
-for Hyperframes rendering. Matches YouTube Shorts tech explainer style.
+render_direct.py — Build a 9:16 composition for Hyperframes rendering.
+Matches the "storytime" YouTube Shorts style:
+- Static title at the top
+- Ken Burns animated image in the center (cropped to landscape/square)
+- Dynamic word-by-word captions at the bottom
 """
 import os
-import json
 import shutil
 from pathlib import Path
 
@@ -25,49 +27,49 @@ for img in IMAGE_DIR.glob("*.jpg"):
     shutil.copy(img, WORKSPACE / "images" / img.name)
 
 # ── Composition config ──────────────────────────────────────────────
-W, H = 1080, 1920  # 9:16 vertical (YouTube Shorts)
-total = 24          # seconds
+W, H = 1080, 1920  # 9:16 vertical
+total = 24         # seconds
 
-# Neon palette
-NEON_CYAN   = "#00ffcc"
-NEON_PURPLE = "#a855f7"
-NEON_PINK   = "#ff3366"
-NEON_GREEN  = "#00ff88"
-BG_BLACK    = "#000000"
+BG_BLACK = "#000000"
+TITLE_TEXT = "How to Build AI Agents for Free"
 
-# Scene definitions
+# Timing for the word-by-word captions
+# We will approximate the word timings for each clip
 clips = [
     {
         "id": "c1", "start": 0, "end": 5,
         "img": "images/scene1.jpg",
-        "title": "TIRED OF",
-        "highlight": "API FEES?",
-        "sub": "AI video agents cost a fortune.",
-        "accent": NEON_CYAN,
+        "words": [
+            ("Tired", 0.0, 0.5), ("of", 0.5, 0.8), ("API", 0.8, 1.4), ("fees?", 1.4, 2.0),
+            ("AI", 2.2, 2.6), ("video", 2.6, 3.2), ("agents", 3.2, 3.8), ("cost", 3.8, 4.2), ("a", 4.2, 4.4), ("fortune.", 4.4, 5.0)
+        ]
     },
     {
         "id": "c2", "start": 5, "end": 11,
         "img": "images/scene2.jpg",
-        "title": "MEET",
-        "highlight": "LOCAL AI",
-        "sub": "Run LLMs & Voice on CPU. Zero cost.",
-        "accent": NEON_GREEN,
+        "words": [
+            ("Meet", 5.0, 5.5), ("LocalAI.", 5.5, 6.5),
+            ("Run", 6.8, 7.2), ("LLMs", 7.2, 8.0), ("&", 8.0, 8.2), ("Voice", 8.2, 8.8), ("on", 8.8, 9.2), ("CPU.", 9.2, 10.0),
+            ("Zero", 10.2, 10.6), ("cost.", 10.6, 11.0)
+        ]
     },
     {
         "id": "c3", "start": 11, "end": 17,
         "img": "images/scene3.jpg",
-        "title": "ENTER",
-        "highlight": "HYPERFRAMES",
-        "sub": "HTML → Video in seconds.",
-        "accent": NEON_PURPLE,
+        "words": [
+            ("Enter", 11.0, 11.6), ("Hyperframes.", 11.6, 13.0),
+            ("HTML", 13.2, 14.0), ("→", 14.0, 14.4), ("Video", 14.4, 15.0), ("in", 15.0, 15.4), ("seconds.", 15.4, 16.5)
+        ]
     },
     {
         "id": "c4", "start": 17, "end": 24,
         "img": "images/scene4.jpg",
-        "title": "BUILD",
-        "highlight": "FOR FREE.",
-        "sub": "No GPUs. No API keys. Just results.",
-        "accent": NEON_PINK,
+        "words": [
+            ("Build", 17.0, 17.5), ("AI", 17.5, 17.9), ("agents", 17.9, 18.5), ("for", 18.5, 18.8), ("free.", 18.8, 19.5),
+            ("No", 19.8, 20.2), ("GPUs.", 20.2, 21.0),
+            ("No", 21.2, 21.6), ("API", 21.6, 22.0), ("keys.", 22.0, 22.5),
+            ("Just", 22.8, 23.2), ("results.", 23.2, 24.0)
+        ]
     },
 ]
 
@@ -78,80 +80,37 @@ audio_segs = [
     {"src": "audio/s4.wav", "start": 17},
 ]
 
-
 def build_clip_html(c):
-    """Build a single scene div with background image, overlay, and text."""
+    """Build a single scene div with the image."""
+    # Image container in the center (landscape aspect ratio)
     return f"""
   <div id="{c['id']}" class="clip" style="
-    position:absolute; top:0; left:0; width:100%; height:100%;
+    position:absolute; top:25%; left:0; width:100%; height:50%;
     opacity:0; overflow:hidden;
   ">
-    <!-- Background image with Ken Burns -->
+    <!-- Image with Ken Burns -->
     <img id="img_{c['id']}" src="{c['img']}" style="
       position:absolute; top:0; left:0; width:100%; height:100%;
-      object-fit:cover; transform:scale(1.05); filter:brightness(0.6);
+      object-fit:cover; transform:scale(1.0);
     ">
-    <!-- Dark gradient overlay -->
-    <div style="
-      position:absolute; top:0; left:0; width:100%; height:100%;
-      background: linear-gradient(
-        180deg,
-        rgba(0,0,0,0.3) 0%,
-        rgba(0,0,0,0.7) 50%,
-        rgba(0,0,0,0.95) 100%
-      );
-    "></div>
-    <!-- Glitch flash overlay -->
-    <div id="glitch_{c['id']}" style="
-      position:absolute; top:0; left:0; width:100%; height:100%;
-      background: {c['accent']}; opacity:0; mix-blend-mode:overlay;
-    "></div>
-    <!-- Text content -->
-    <div style="
-      position:absolute; bottom:280px; left:60px; right:60px;
-      z-index:10;
-    ">
-      <div id="title_{c['id']}" class="title-text" style="
-        font-family:'Space Grotesk',sans-serif; font-weight:400;
-        font-size:64px; line-height:1.1; color:rgba(255,255,255,0.7);
-        letter-spacing:4px; text-transform:uppercase;
-        opacity:0; transform:translateY(40px);
-      ">{c['title']}</div>
-      <div id="highlight_{c['id']}" class="highlight-text" style="
-        font-family:'Space Grotesk',sans-serif; font-weight:700;
-        font-size:96px; line-height:1.05; color:#fff;
-        letter-spacing:-1px;
-        text-shadow: 0 0 30px {c['accent']}, 0 0 60px {c['accent']}40;
-        opacity:0; transform:translateY(60px);
-        margin-top:8px;
-      ">{c['highlight']}</div>
-      <div id="sub_{c['id']}" style="
-        font-family:'Space Grotesk',sans-serif; font-weight:400;
-        font-size:36px; color:{c['accent']}; margin-top:24px;
-        opacity:0; transform:translateY(30px);
-        letter-spacing:1px;
-      ">{c['sub']}</div>
-      <div id="bar_{c['id']}" style="
-        width:0px; height:4px; background:{c['accent']};
-        border-radius:2px; margin-top:32px;
-        box-shadow: 0 0 12px {c['accent']};
-      "></div>
-    </div>
   </div>"""
 
+def build_captions_html():
+    """Build the dynamic captions container."""
+    html_parts = []
+    html_parts.append('<div id="captions-container" style="position:absolute; bottom:15%; left:10%; right:10%; text-align:center;">')
+    for c in clips:
+        html_parts.append(f'<div id="captions_{c["id"]}" style="display:none; font-family:\'Arial\',sans-serif; font-weight:bold; font-size:60px; line-height:1.3; color:#888888;">')
+        for i, (word, start, end) in enumerate(c["words"]):
+            html_parts.append(f'<span id="word_{c["id"]}_{i}">{word}</span> ')
+        html_parts.append('</div>')
+    html_parts.append('</div>')
+    return "\n".join(html_parts)
 
 def build_gsap_timeline():
     """Build the GSAP animation timeline."""
     lines = []
-    # Initial state
-    for c in clips:
-        lines.append(f'  gsap.set("#{c["id"]}", {{opacity:0}});')
-        lines.append(f'  gsap.set("#title_{c["id"]}", {{opacity:0, y:40}});')
-        lines.append(f'  gsap.set("#highlight_{c["id"]}", {{opacity:0, y:60}});')
-        lines.append(f'  gsap.set("#sub_{c["id"]}", {{opacity:0, y:30}});')
-        lines.append(f'  gsap.set("#bar_{c["id"]}", {{width:0}});')
-
-    lines.append("")
+    
     lines.append("  const tl = gsap.timeline({paused:true});")
     lines.append("")
 
@@ -159,32 +118,21 @@ def build_gsap_timeline():
         s, e = c["start"], c["end"]
         dur = e - s
 
-        # Glitch flash on entry
-        lines.append(f'  // Scene: {c["id"]} ({s}s-{e}s)')
-        lines.append(f'  tl.to("#glitch_{c["id"]}", {{opacity:0.8, duration:0.05}}, {s});')
-        lines.append(f'  tl.to("#glitch_{c["id"]}", {{opacity:0, duration:0.15}}, {s+0.05});')
-
         # Fade in scene
-        lines.append(f'  tl.to("#{c["id"]}", {{opacity:1, duration:0.3, ease:"power2.out"}}, {s});')
+        lines.append(f'  tl.set("#{c["id"]}", {{opacity:1}}, {s});')
+        lines.append(f'  tl.set("#captions_{c["id"]}", {{display:"block"}}, {s});')
 
-        # Ken Burns zoom
-        lines.append(f'  tl.to("#img_{c["id"]}", {{scale:1.2, duration:{dur}, ease:"none"}}, {s});')
+        # Ken Burns zoom (slight zoom in)
+        lines.append(f'  tl.fromTo("#img_{c["id"]}", {{scale:1.0, x:0}}, {{scale:1.1, x:-20, duration:{dur}, ease:"none"}}, {s});')
 
-        # Title slam up
-        lines.append(f'  tl.to("#title_{c["id"]}", {{opacity:1, y:0, duration:0.4, ease:"power3.out"}}, {s+0.15});')
+        # Captions highlight
+        for i, (word, w_start, w_end) in enumerate(c["words"]):
+            lines.append(f'  tl.set("#word_{c["id"]}_{i}", {{color:"#FFFFFF"}}, {w_start});')
 
-        # Highlight slam up (delayed, heavier)
-        lines.append(f'  tl.to("#highlight_{c["id"]}", {{opacity:1, y:0, duration:0.5, ease:"power3.out"}}, {s+0.3});')
-
-        # Subtitle fade in
-        lines.append(f'  tl.to("#sub_{c["id"]}", {{opacity:1, y:0, duration:0.4, ease:"power2.out"}}, {s+0.6});')
-
-        # Accent bar wipe
-        lines.append(f'  tl.to("#bar_{c["id"]}", {{width:120, duration:0.6, ease:"power2.out"}}, {s+0.8});')
-
-        # Fade out (except last scene)
+        # Fade out at the end (except last scene)
         if e < total:
-            lines.append(f'  tl.to("#{c["id"]}", {{opacity:0, duration:0.2, ease:"power2.in"}}, {e-0.2});')
+            lines.append(f'  tl.set("#{c["id"]}", {{opacity:0}}, {e});')
+            lines.append(f'  tl.set("#captions_{c["id"]}", {{display:"none"}}, {e});')
 
         lines.append("")
 
@@ -197,7 +145,6 @@ def build_audio_html():
         for i, a in enumerate(audio_segs)
     )
 
-
 def build_audio_js():
     return "\n".join(
         f'  gsap.delayedCall({a["start"]}, () => document.getElementById("aud{i}").play());'
@@ -207,6 +154,7 @@ def build_audio_js():
 
 # ── Assemble HTML ───────────────────────────────────────────────────
 clips_html = "\n".join(build_clip_html(c) for c in clips)
+captions_html = build_captions_html()
 audio_html = build_audio_html()
 gsap_timeline = build_gsap_timeline()
 audio_js = build_audio_js()
@@ -220,29 +168,24 @@ html = f"""<!DOCTYPE html>
     body {{
       width:{W}px; height:{H}px; overflow:hidden;
       background:{BG_BLACK};
-      font-family:'Space Grotesk',sans-serif;
-    }}
-    /* Subtle scanline overlay */
-    body::after {{
-      content:'';
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.03) 2px,
-        rgba(0,0,0,0.03) 4px
-      );
-      pointer-events:none;
-      z-index:999;
+      font-family:'Arial',sans-serif;
     }}
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 </head>
 <body data-composition-id="root" data-start="0" data-duration="{total}" data-width="{W}" data-height="{H}">
-{clips_html}
-{audio_html}
+  <!-- Persistent Top Title -->
+  <div style="position:absolute; top:8%; left:5%; right:5%; text-align:center; color:#FFFFFF; font-size:64px; font-weight:bold; line-height:1.2;">
+    {TITLE_TEXT}
+  </div>
+
+  <!-- Scenes -->
+  {clips_html}
+
+  <!-- Dynamic Captions -->
+  {captions_html}
+
+  {audio_html}
 <script>
 {gsap_timeline}
   window.__timelines = window.__timelines || {{}};
@@ -256,6 +199,3 @@ html = f"""<!DOCTYPE html>
 index_path = WORKSPACE / "index.html"
 index_path.write_text(html, encoding="utf-8")
 print(f"[OK] Composition written -> {index_path}")
-print(f"     Dimensions: {W}x{H} (9:16 vertical)")
-print(f"     Duration: {total}s")
-print(f"     Scenes: {len(clips)}")
