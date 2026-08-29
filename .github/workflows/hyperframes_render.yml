@@ -1,6 +1,8 @@
 name: Render Video with Hyperframes
 
 on:
+  push:
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
