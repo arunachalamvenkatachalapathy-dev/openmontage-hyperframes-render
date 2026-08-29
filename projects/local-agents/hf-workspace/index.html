@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { width:1080px; height:1920px; overflow:hidden; background:#0a0a0a; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+</head>
+<body data-composition-id="root" data-start="0" data-duration="22" data-width="1080" data-height="1920">
+
+  <div id="c1" class="clip" style="
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:#0a0a0a; opacity:0;
+    padding: 80px 60px; box-sizing:border-box; text-align:center;
+  ">
+    <div class="label" style="
+      font-family:'Space Grotesk',sans-serif; font-weight:700;
+      font-size:108px; line-height:1.05; color:#fff; letter-spacing:-2px;
+    ">TIRED OF API FEES?</div>
+    <div class="sub" style="
+      font-family:'Space Grotesk',sans-serif; font-weight:400;
+      font-size:44px; color:#00ff88; margin-top:32px; line-height:1.3;
+    ">AI video agents are expensive.</div>
+    <div class="bar" style="
+      width:120px; height:6px; background:#00ff88; border-radius:3px; margin-top:48px;
+    "></div>
+  </div>
+
+  <div id="c2" class="clip" style="
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:#0a0a0a; opacity:0;
+    padding: 80px 60px; box-sizing:border-box; text-align:center;
+  ">
+    <div class="label" style="
+      font-family:'Space Grotesk',sans-serif; font-weight:700;
+      font-size:108px; line-height:1.05; color:#fff; letter-spacing:-2px;
+    ">Meet LocalAI</div>
+    <div class="sub" style="
+      font-family:'Space Grotesk',sans-serif; font-weight:400;
+      font-size:44px; color:#00ff88; margin-top:32px; line-height:1.3;
+    ">Run LLMs & Voice locally on CPU. Zero cost.</div>
+    <div class="bar" style="
+      width:120px; height:6px; background:#00ff88; border-radius:3px; margin-top:48px;
+    "></div>
+  </div>
+
+  <div id="c3" class="clip" style="
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:#0a0a0a; opacity:0;
+    padding: 80px 60px; box-sizing:border-box; text-align:center;
+  ">
+    <div class="label" style="
+      font-family:'Space Grotesk',sans-serif; font-weight:700;
+      font-size:108px; line-height:1.05; color:#fff; letter-spacing:-2px;
+    ">ENTER HYPERFRAMES</div>
+    <div class="sub" style="
+      font-family:'Space Grotesk',sans-serif; font-weight:400;
+      font-size:44px; color:#00ff88; margin-top:32px; line-height:1.3;
+    ">HTML → video in seconds, not minutes.</div>
+    <div class="bar" style="
+      width:120px; height:6px; background:#00ff88; border-radius:3px; margin-top:48px;
+    "></div>
+  </div>
+
+  <div id="c4" class="clip" style="
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:#0a0a0a; opacity:0;
+    padding: 80px 60px; box-sizing:border-box; text-align:center;
+  ">
+    <div class="label" style="
+      font-family:'Space Grotesk',sans-serif; font-weight:700;
+      font-size:108px; line-height:1.05; color:#fff; letter-spacing:-2px;
+    ">BUILD FOR FREE.</div>
+    <div class="sub" style="
+      font-family:'Space Grotesk',sans-serif; font-weight:400;
+      font-size:44px; color:#00ff88; margin-top:32px; line-height:1.3;
+    ">No API keys. No cloud GPUs. Just results.</div>
+    <div class="bar" style="
+      width:120px; height:6px; background:#00ff88; border-radius:3px; margin-top:48px;
+    "></div>
+  </div>
+  <audio id="aud0" src="audio/s1.wav" preload="auto"></audio>
+  <audio id="aud1" src="audio/s2.wav" preload="auto"></audio>
+  <audio id="aud2" src="audio/s3.wav" preload="auto"></audio>
+  <audio id="aud3" src="audio/s4.wav" preload="auto"></audio>
+<script>
+    gsap.set("#c1 .label", {y:50, opacity:0});
+  gsap.set("#c2 .label", {y:50, opacity:0});
+  gsap.set("#c3 .label", {y:50, opacity:0});
+  gsap.set("#c4 .label", {y:50, opacity:0});
+  const tl = gsap.timeline({paused:true});
+  tl.to("#c1", {opacity:1, duration:0.4, ease:"power2.out"}, 0);
+  tl.to("#c1 .label", {y:0, opacity:1, duration:0.5, ease:"power3.out"}, 0.1);
+  tl.to("#c1", {opacity:0, duration:0.3}, 4.7);
+  tl.to("#c2", {opacity:1, duration:0.4, ease:"power2.out"}, 5);
+  tl.to("#c2 .label", {y:0, opacity:1, duration:0.5, ease:"power3.out"}, 5.1);
+  tl.to("#c2", {opacity:0, duration:0.3}, 10.7);
+  tl.to("#c3", {opacity:1, duration:0.4, ease:"power2.out"}, 11);
+  tl.to("#c3 .label", {y:0, opacity:1, duration:0.5, ease:"power3.out"}, 11.1);
+  tl.to("#c3", {opacity:0, duration:0.3}, 16.7);
+  tl.to("#c4", {opacity:1, duration:0.4, ease:"power2.out"}, 17);
+  tl.to("#c4 .label", {y:0, opacity:1, duration:0.5, ease:"power3.out"}, 17.1);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["root"] = tl;
+    gsap.delayedCall(0, () => document.getElementById("aud0").play());
+  gsap.delayedCall(5, () => document.getElementById("aud1").play());
+  gsap.delayedCall(11, () => document.getElementById("aud2").play());
+  gsap.delayedCall(17, () => document.getElementById("aud3").play());
+</script>
+</body>
+</html>
