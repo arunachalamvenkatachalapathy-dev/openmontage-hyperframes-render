@@ -43,5 +43,6 @@ jobs:
         if: always()
         with:
           name: final-video
+          retention-days: 2
           path: projects/local-agents/renders/final.mp4
           if-no-files-found: warn
